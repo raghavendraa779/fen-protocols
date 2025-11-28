@@ -1,5 +1,1 @@
-im learning git 
-tried in ubuntu but not workout cause wrong credentials
-now trying in windows lets see
-
-# fen-protocols
+# Protocol 1: The Apprentice Awakens
