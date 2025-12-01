@@ -16,4 +16,5 @@
 -  The VIM , where mouse is the enimy..
 
 -  I Dont need any mouse yet!! I'm navigating entire screen without Mouse!
+-  YO! Used automation via bash script Succesfully(#! shebang .. #!bin/bash and bash code then chmod +x)
 
