@@ -18,3 +18,4 @@
 -  I Dont need any mouse yet!! I'm navigating entire screen without Mouse!
 -  YO! Used automation via bash script Succesfully(#! shebang .. #!bin/bash and bash code then chmod +x)
 
+- WARNING! The Danger Code. We can Bypass it through branches. cause one error in main leads to crash whole respiratory.
