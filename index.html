@@ -2,48 +2,429 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Raghavendra | Portfolio</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Raghavendra – Personal Dashboard</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: #0f172a;
+      color: #e5e7eb;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .app {
+      max-width: 900px;
+      width: 100%;
+      background: #020617;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+      border: 1px solid #1f2937;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    header h1 {
+      font-size: 1.6rem;
+    }
+
+    header p {
+      font-size: 0.9rem;
+      color: #9ca3af;
+    }
+
+    .badge {
+      background: #1d4ed8;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+    }
+
+    h2 {
+      margin: 18px 0 10px;
+      font-size: 1.2rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 2fr 3fr;
+      gap: 18px;
+      margin-top: 10px;
+    }
+
+    .card {
+      background: #020617;
+      border-radius: 12px;
+      padding: 16px;
+      border: 1px solid #1f2937;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: 1rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      margin-top: 8px;
+      margin-bottom: 4px;
+      color: #9ca3af;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid #374151;
+      background: #020617;
+      color: #e5e7eb;
+      font-size: 0.9rem;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #60a5fa;
+    }
+
+    button {
+      margin-top: 12px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: none;
+      background: #3b82f6;
+      color: white;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #2563eb;
+    }
+
+    .tasks-list {
+      list-style: none;
+      max-height: 280px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .task-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 8px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      border: 1px solid #1f2937;
+      background: #020617;
+    }
+
+    .task-main {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .task-title {
+      font-size: 0.95rem;
+    }
+
+    .task-meta {
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+
+    .chip {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid #4b5563;
+      margin-left: 8px;
+    }
+
+    .chip.study { border-color: #22c55e; }
+    .chip.college { border-color: #eab308; }
+    .chip.personal { border-color: #ec4899; }
+
+    .delete-btn {
+      background: #ef4444;
+      font-size: 0.75rem;
+      padding: 6px 10px;
+    }
+
+    .delete-btn:hover {
+      background: #dc2626;
+    }
+
+    .empty {
+      font-size: 0.85rem;
+      color: #6b7280;
+      margin-top: 6px;
+    }
+
+    .small {
+      font-size: 0.8rem;
+      color: #9ca3af;
+      margin-top: 4px;
+    }
+
+    @media (max-width: 700px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>Raghavendra Masanam</h1>
-    <p>Electronics & Data / AI Enthusiast</p>
-    <a href="#projects">View Projects</a>
-    <a href="#contact">Contact Me</a>
-  </header>
+  <div class="app">
+    <header>
+      <div>
+        <h1>Hey Raghavendra 👋</h1>
+        <p>Your personal schedule dashboard</p>
+      </div>
+      <div>
+        <div class="badge" id="todayText">Today</div>
+      </div>
+    </header>
 
-  <section id="about">
-    <h2>About Me</h2>
-    <p>
-      I am a B.Tech student interested in electronics, Python, AI/ML,
-      and Java. I enjoy learning about diodes, transistors, NumPy,
-      and building small coding projects.
-    </p>
-  </section>
+    <div class="grid">
+      <!-- LEFT: Add Task -->
+      <div class="card">
+        <h3>Add a Task / Schedule</h3>
+        <form id="taskForm">
+          <label for="title">Title</label>
+          <input id="title" type="text" placeholder="Ex: Study NumPy vectors" required />
 
-  <section id="skills">
-    <h2>Skills</h2>
-    <ul>
-      <li><strong>Programming:</strong> Python, Java, C, NumPy</li>
-      <li><strong>Electronics:</strong> Diodes, BJTs, FETs, Rectifiers</li>
-      <li><strong>Tools:</strong> Git, Linux terminal, VS Code</li>
-    </ul>
-  </section>
+          <label for="date">Date</label>
+          <input id="date" type="date" required />
 
-  <section id="projects">
-    <h2>Projects</h2>
-    <div>
-      <h3>NumPy Practice Notebook</h3>
-      <p>Experiments with arrays, slicing, and basic vectorization.</p>
-      <!-- <a href="YOUR_GITHUB_LINK">View on GitHub</a> -->
+          <label for="time">Time</label>
+          <input id="time" type="time" required />
+
+          <label for="type">Type</label>
+          <select id="type">
+            <option value="study">Study</option>
+            <option value="college">College</option>
+            <option value="personal">Personal</option>
+          </select>
+
+          <button type="submit">Save Task</button>
+          <p class="small">Tasks are saved automatically in this browser.</p>
+        </form>
+      </div>
+
+      <!-- RIGHT: Today's Tasks -->
+      <div class="card">
+        <h3>Today's Tasks</h3>
+        <ul class="tasks-list" id="todayList"></ul>
+        <p class="empty" id="todayEmpty">No tasks for today yet. Add some on the left ➜</p>
+      </div>
     </div>
-  </section>
 
-  <section id="contact">
-    <h2>Contact</h2>
-    <p>Email: youremail@example.com</p>
-    <!-- Add your GitHub/LinkedIn links here later -->
-  </section>
+    <!-- ALL TASKS -->
+    <section class="card" style="margin-top: 18px;">
+      <h3>All Scheduled Tasks</h3>
+      <ul class="tasks-list" id="allList"></ul>
+      <p class="empty" id="allEmpty">No tasks saved yet.</p>
+      <p class="small">Tip: Use this as your single source of truth for classes, labs, study slots, etc.</p>
+    </section>
+  </div>
+
+  <script>
+    const taskForm = document.getElementById("taskForm");
+    const titleInput = document.getElementById("title");
+    const dateInput = document.getElementById("date");
+    const timeInput = document.getElementById("time");
+    const typeSelect = document.getElementById("type");
+
+    const todayList = document.getElementById("todayList");
+    const allList = document.getElementById("allList");
+    const todayEmpty = document.getElementById("todayEmpty");
+    const allEmpty = document.getElementById("allEmpty");
+    const todayText = document.getElementById("todayText");
+
+    // --- Helpers for date formatting ---
+    function getTodayISO() {
+      const d = new Date();
+      // Adjust to local date (no time)
+      const year = d.getFullYear();
+      const month = String(d.getMonth() + 1).padStart(2, "0");
+      const day = String(d.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    }
+
+    function formatDisplayDate(iso) {
+      const d = new Date(iso);
+      return d.toLocaleDateString(undefined, {
+        weekday: "short",
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      });
+    }
+
+    function formatDisplayTime(timeStr) {
+      // timeStr like "13:30"
+      const [h, m] = timeStr.split(":").map(Number);
+      const d = new Date();
+      d.setHours(h, m);
+      return d.toLocaleTimeString(undefined, {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+    }
+
+    // --- Load & Save tasks from localStorage ---
+    let tasks = [];
+
+    function loadTasks() {
+      const raw = localStorage.getItem("rm_dashboard_tasks");
+      if (raw) {
+        try {
+          tasks = JSON.parse(raw);
+        } catch (e) {
+          tasks = [];
+        }
+      }
+    }
+
+    function saveTasks() {
+      localStorage.setItem("rm_dashboard_tasks", JSON.stringify(tasks));
+    }
+
+    function chipClass(type) {
+      if (type === "study") return "chip study";
+      if (type === "college") return "chip college";
+      return "chip personal";
+    }
+
+    function chipLabel(type) {
+      if (type === "study") return "Study";
+      if (type === "college") return "College";
+      return "Personal";
+    }
+
+    // --- Render functions ---
+    function renderTasks() {
+      const todayISO = getTodayISO();
+      todayList.innerHTML = "";
+      allList.innerHTML = "";
+
+      let todayCount = 0;
+
+      if (tasks.length === 0) {
+        todayEmpty.style.display = "block";
+        allEmpty.style.display = "block";
+        return;
+      } else {
+        allEmpty.style.display = "none";
+      }
+
+      tasks
+        .sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time))
+        .forEach((task, index) => {
+          // Create element
+          const li = document.createElement("li");
+          li.className = "task-item";
+
+          const main = document.createElement("div");
+          main.className = "task-main";
+
+          const title = document.createElement("div");
+          title.className = "task-title";
+          title.textContent = task.title;
+
+          const meta = document.createElement("div");
+          meta.className = "task-meta";
+          meta.textContent =
+            `${formatDisplayDate(task.date)} • ${formatDisplayTime(task.time)}`;
+
+          const chip = document.createElement("span");
+          chip.className = chipClass(task.type);
+          chip.textContent = chipLabel(task.type);
+          meta.appendChild(chip);
+
+          main.appendChild(title);
+          main.appendChild(meta);
+
+          const delBtn = document.createElement("button");
+          delBtn.className = "delete-btn";
+          delBtn.textContent = "Delete";
+          delBtn.addEventListener("click", () => {
+            tasks.splice(index, 1);
+            saveTasks();
+            renderTasks();
+          });
+
+          li.appendChild(main);
+          li.appendChild(delBtn);
+
+          // Add to All
+          allList.appendChild(li.cloneNode(true));
+
+          // If today's task, add to today list
+          if (task.date === todayISO) {
+            todayList.appendChild(li);
+            todayCount++;
+          }
+        });
+
+      todayEmpty.style.display = todayCount === 0 ? "block" : "none";
+    }
+
+    // --- On page load ---
+    (function init() {
+      // Set today's text
+      const todayISO = getTodayISO();
+      const pretty = formatDisplayDate(todayISO);
+      todayText.textContent = pretty;
+
+      // Default date in form = today
+      dateInput.value = todayISO;
+
+      loadTasks();
+      renderTasks();
+    })();
+
+    // --- On submit ---
+    taskForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const newTask = {
+        title: titleInput.value.trim(),
+        date: dateInput.value,
+        time: timeInput.value,
+        type: typeSelect.value,
+      };
+
+      if (!newTask.title || !newTask.date || !newTask.time) return;
+
+      tasks.push(newTask);
+      saveTasks();
+      renderTasks();
+
+      titleInput.value = "";
+      timeInput.value = "";
+      dateInput.value = getTodayISO();
+      typeSelect.value = "study";
+    });
+  </script>
 </body>
 </html>
